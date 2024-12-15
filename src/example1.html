@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Transcriber</title>
+    <link rel="stylesheet" href="./style.css">
+    <meta name="description" content="Speech-to-Text Transcriber: Scroll Mode">
+</head>
+
+<body>
+    <h1>Speech-to-Text Transcriber: Scroll Mode</h1>
+    <a href="./example2.html">
+        <p>
+            See Example 2
+        </p>
+    </a>
+    <br>
+    <video src="./Google.mp4" controls></video>
+
+    <floating-captions id="captions" time="" content='[]' type="scroll">
+    </floating-captions>
+
+
+    <script src="./utils/drag.js"></script>
+    <script src="./floating-captions.mjs" type="module"></script>
+    <script src="./transcriber.js" type="module"></script>
+</body>
+
+</html>

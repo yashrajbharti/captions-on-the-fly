@@ -1,0 +1,56 @@
+{
+    "manifest_version": 3,
+    "name": "Auto-Captioner",
+    "version": "1.0",
+    "description": "Automatically generates captions for videos on any webpage.",
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "storage",
+        "scripting",
+        "contextMenus",
+        "unlimitedStorage"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "scripts/worker.js",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "scripts/captions.js",
+                "scripts/content.js",
+                "scripts/drag.js"
+            ],
+            "type": "module"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "scripts/captions.js",
+                "scripts/drag.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ],
+            "type": "module"
+        }
+    ],
+    "icons": {
+        "128": "icons/icon.png"
+    },
+    "action": {
+        "default_popup": "",
+        "default_icon": "icons/icon.png"
+    },
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
+    }
+}

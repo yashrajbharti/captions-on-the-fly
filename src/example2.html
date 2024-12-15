@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Transcriber</title>
+    <link rel="stylesheet" href="./style.css">
+    <meta name="description" content="Speech-to-Text Transcriber: Append Mode">
+</head>
+
+<body>
+    <h1>Speech-to-Text Transcriber: Append Mode</h1>
+    <a href="./example1.html">
+        <p>
+            See Example 1
+        </p>
+    </a>
+    <br>
+    <video src="./TED.mp4" controls></video>
+
+    <floating-captions id="captions" time="" content='[]' type="append">
+    </floating-captions>
+
+    <script src="./utils/drag.js"></script>
+    <script src="./floating-captions.mjs" type="module"></script>
+    <script src="./transcriber.js" type="module"></script>
+</body>
+
+</html>
