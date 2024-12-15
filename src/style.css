@@ -42,7 +42,7 @@ h2 {
     text-align: center;
 }
 
-p {
+.examples p {
     color: light-dark(var(--light-color), var(--dark-color));
 }
 
