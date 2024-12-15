@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Transcriber</title>
+    <link rel="stylesheet" href="./style.css">
+    <meta name="description" content="Speech-to-Text Transcriber: Upload Video">
+</head>
+
+<body>
+    <h1>Speech-to-Text Transcriber: Upload Any Video</h1>
+    <a href="./example1.html">
+        <p>
+            See Example 1
+        </p>
+    </a>
+    <a href="./example2.html">
+        <p>
+            See Example 2
+        </p>
+    </a>
+    <br>
+
+    <input type="file" name="video" id="video" accept="video/*">
+    <br>
+    <video src="" controls></video>
+
+    <floating-captions id="captions" time="" content='[]' type="append">
+    </floating-captions>
+
+    <script>
+        document.querySelector("input[type='file']").onchange = function (event) {
+            let file = event.target.files[0];
+            let blobURL = URL.createObjectURL(file);
+            document.querySelector("video").src = blobURL;
+        }
+    </script>
+    <script src="./utils/drag.js"></script>
+    <script src="./floating-captions.mjs" type="module"></script>
+    <script src="./transcriber.js" type="module"></script>
+</body>
+
+</html>
