@@ -19,7 +19,7 @@ This project demonstrates the feasibility of real-time, auto-generated captions 
 This project was developed to:
 
 - Validate the practicality of the `autogenerate` attribute proposed for the `<track>` element.
-- Enhance web accessibility by enabling captions as a default feature, as only 0.5% of videos have it as per *Web Almanac HTTP archive*.
+- Enhance web accessibility by enabling captions as a default feature, as only 0.5% of videos have it as per *Web Almanac by HTTP archive*.
 
 > [!Important]
 > This can help to showcase the power of Chrome's Gemini Nano API as a potential backend for AI-powered captioning. With the release of Prompt API, Writer and Rewriter API and Translate API just to name a few, this can be another powerful addition to the **window.ai** APIs.
