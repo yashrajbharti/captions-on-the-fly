@@ -35,6 +35,17 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    color: light-dark(var(--light-color), var(--dark-color));
+    margin-block-end: 20px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+p {
+    color: light-dark(var(--light-color), var(--dark-color));
+}
+
 video {
     inline-size: 80%;
     max-inline-size: 900px;
@@ -54,4 +65,10 @@ floating-captions {
 floating-captions:active {
     cursor: grabbing;
     /* Change cursor when dragging */
+}
+
+.examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }

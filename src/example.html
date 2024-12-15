@@ -11,31 +11,50 @@
 
 <body>
     <h1>Speech-to-Text Transcriber: Upload Any Video</h1>
-    <a href="./example1.html">
-        <p>
-            See Example 1
-        </p>
-    </a>
-    <a href="./example2.html">
-        <p>
-            See Example 2
-        </p>
-    </a>
+    <div class="examples">
+        <a href="./example1.html">
+            <p>
+                See Example 1
+            </p>
+        </a>
+        <a href="./example2.html">
+            <p>
+                See Example 2
+            </p>
+        </a>
+    </div>
     <br>
 
-    <input type="file" name="video" id="video" accept="video/*">
-    <br>
+    <form action="">
+        <input type="file" name="video" id="video" accept="video/*">
+        <br><br>
+        <h2>Set Captions Type</h2>
+        <input type="radio" name="group" id="static" checked>
+        <label for="static">Static</label>
+        <input type="radio" name="group" id="append" checked>
+        <label for="append">Append</label>
+        <input type="radio" name="group" id="scroll" checked>
+        <label for="scroll">Scroll</label>
+        <br><br>
+    </form>
     <video src="" controls></video>
+
 
     <floating-captions id="captions" time="" content='[]' type="append">
     </floating-captions>
 
     <script>
         document.querySelector("input[type='file']").onchange = function (event) {
+            localStorage.clear()
             let file = event.target.files[0];
             let blobURL = URL.createObjectURL(file);
             document.querySelector("video").src = blobURL;
         }
+        document.querySelectorAll("input[type='radio']").forEach(radio => {
+            radio.addEventListener("change", (e) => {
+                document.querySelector("floating-captions").setAttribute("type", e.currentTarget.getAttribute("id"))
+            })
+        })
     </script>
     <script src="./utils/drag.js"></script>
     <script src="./floating-captions.mjs" type="module"></script>
