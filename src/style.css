@@ -72,3 +72,7 @@ floating-captions:active {
     flex-wrap: wrap;
     gap: 10px;
 }
+
+form {
+    text-align: center;
+}
