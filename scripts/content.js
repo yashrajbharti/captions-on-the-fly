@@ -13,7 +13,7 @@ const video = document.querySelector("video");
 floatingCaptions.setAttribute("id", "captions");
 floatingCaptions.setAttribute("time", "");
 floatingCaptions.setAttribute("content", "[]");
-floatingCaptions.setAttribute("type", "scroll");
+floatingCaptions.setAttribute("type", "append");
 
 // State Management
 let isBusy = false;
@@ -21,7 +21,6 @@ let videoSrc =
   video?.getAttribute("src") ||
   video?.querySelector("source")?.getAttribute("src");
 
-// Stale while re-validate if possible
 if (localStorage.getItem(window.location.href + videoSrc))
   floatingCaptions.setAttribute(
     "content",
@@ -33,6 +32,8 @@ if (localStorage.getItem(window.location.href + videoSrc))
 // Handle messages from the background script (worker logic)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const { status, data } = message;
+
+  if (localStorage.getItem(window.location.href + videoSrc)) return;
 
   switch (status) {
     case "update":
@@ -111,6 +112,7 @@ video.addEventListener("timeupdate", () =>
 // Handle the transcribe button click
 video.addEventListener("play", async () => {
   if (isBusy) return;
+  if (localStorage.getItem(window.location.href + videoSrc)) return;
 
   const audioFile = await getVideoAsFile(videoSrc);
   if (!audioFile) {

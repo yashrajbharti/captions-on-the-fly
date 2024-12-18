@@ -143,7 +143,11 @@ const transcribe = async (
 
   // Load transcriber model
   let transcriber = await p.getInstance((data) => {
-    // sendMessageToContentScript(data);
+    sendMessageToContentScript({
+      status: "download",
+      task: "automatic-speech-recognition",
+      data: data,
+    });
   });
 
   const time_precision =
@@ -160,7 +164,6 @@ const transcribe = async (
 
   function chunk_callback(chunk) {
     let last = chunks_to_process[chunks_to_process.length - 1];
-
     // Overwrite last chunk with new info
     Object.assign(last, chunk);
     last.finalised = true;
@@ -174,39 +177,33 @@ const transcribe = async (
     }
   }
 
-  let lastUpdateTime = 0;
-  const THROTTLE_INTERVAL = 3000; // 3 seconds
-
-  // Wrap sendMessageToContentScript in a Promise to make it awaitable
   const sendMessageToContentScriptAsync = (message) => {
-    return new Promise((resolve, reject) => {
-      // Query the active tab in the current window
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs.length === 0) {
-          console.warn("No active tab found.");
-          return reject("No active tab found.");
+    chrome.tabs.query({ currentWindow: true }, (tabs) => {
+      if (tabs.length === 0) {
+        console.warn("No tabs found in the current window.");
+        return reject("No tabs found in the current window.");
+      }
+
+      // Find the active tab or fall back to the first tab
+      const targetTab = tabs.find((tab) => tab.active) || tabs[0];
+      const targetTabId = targetTab.id;
+
+      chrome.tabs.sendMessage(targetTabId, message, (response) => {
+        if (chrome.runtime.lastError) {
+          console.warn(
+            "Error sending message:",
+            chrome.runtime.lastError.message
+          );
+          return reject(chrome.runtime.lastError.message);
         }
 
-        const activeTabId = tabs[0].id; // Get the active tab's ID
-
-        // Send a message to the content script in the active tab
-        chrome.tabs.sendMessage(activeTabId, message, (response) => {
-          if (chrome.runtime.lastError) {
-            console.warn(
-              "Error sending message:",
-              chrome.runtime.lastError.message
-            );
-            return reject(chrome.runtime.lastError.message);
-          }
-
-          console.log("Response from content script:", response);
-          resolve(response);
-        });
+        console.log("Response from content script:", response);
+        resolve(response);
       });
     });
   };
 
-  async function callback_function(item) {
+  function callback_function(item) {
     let last = chunks_to_process[chunks_to_process.length - 1];
 
     // Update tokens of last chunk
@@ -219,26 +216,13 @@ const transcribe = async (
       force_full_sequences: false,
     });
 
-    // Get the current time
-    const currentTime = Date.now();
-
-    // Check if sufficient time has passed since the last update
-    if (currentTime - lastUpdateTime >= THROTTLE_INTERVAL) {
-      lastUpdateTime = currentTime;
-
-      // Await message sending to ensure sequential execution
-      try {
-        await sendMessageToContentScriptAsync({
-          status: "update",
-          task: "automatic-speech-recognition",
-          data: data,
-        });
-      } catch (error) {
-        console.error("[Sequential Update] Failed to send message:", error);
-      }
-    } else {
-      console.log("[Throttled Update] Skipping update.");
-    }
+    sendMessageToContentScriptAsync({
+      status: "update",
+      task: "automatic-speech-recognition",
+      data: data,
+    });
+    console.info(data);
+    return data;
   }
 
   // Actually run transcription
