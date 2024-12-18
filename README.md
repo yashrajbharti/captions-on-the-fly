@@ -4,6 +4,9 @@
 
 This project demonstrates the feasibility of real-time, auto-generated captions on the web, supporting the [Auto-Generated Captions API Proposal](https://github.com/yashrajbharti/auto-generate-captions-video). Inspired by feedback and motivation from Adam Argyle and the Chrome Team, this extension showcases how live captions can be integrated into web videos dynamically.
 
+<img width="1645" alt="Captions on the fly for both vanilla and chrome extension" src="https://github.com/user-attachments/assets/579c4873-2610-40d1-b90e-a0e0625d0b93" />
+
+
 ## Features
 
 - **Real-time Captioning**: Captions are generated dynamically on the fly.
