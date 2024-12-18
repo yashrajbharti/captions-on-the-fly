@@ -47,7 +47,7 @@
         "128": "icons/icon.png"
     },
     "action": {
-        "default_popup": "",
+        "default_popup": "popup.html",
         "default_icon": "icons/icon.png"
     },
     "content_security_policy": {
