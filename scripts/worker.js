@@ -215,13 +215,13 @@ const transcribe = async (
       return_timestamps: true,
       force_full_sequences: false,
     });
+    console.info(data);
 
     sendMessageToContentScriptAsync({
       status: "update",
       task: "automatic-speech-recognition",
       data: data,
     });
-    console.info(data);
     return data;
   }
 

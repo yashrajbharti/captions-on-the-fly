@@ -150,6 +150,7 @@ const decodeAudio = (arrayBuffer) => {
       } else {
         audio = audioData.getChannelData(0);
       }
+      audioContext.close();
 
       const model = "Xenova/whisper-tiny";
       const multilingual = false;
