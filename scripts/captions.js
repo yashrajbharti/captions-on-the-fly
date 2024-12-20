@@ -67,6 +67,11 @@ class FloatingCaptions {
       this.updateCaptions(parseFloat(value));
     } else if (name === "content") {
       this.captions = JSON.parse(value);
+    } else if (name === "loading") {
+      if (value === "true")
+        this.container.innerHTML =
+          "Loading Model... Creating Captions... You know the gig  八(＾□＾*)";
+      if (value === "false") this.container.innerHTML = "";
     } else if (name === "type") {
       this.container.style.flexDirection =
         value === "scroll" ? "column" : "column-reverse";

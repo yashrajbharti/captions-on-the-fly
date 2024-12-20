@@ -14,6 +14,7 @@ floatingCaptions.setAttribute("id", "captions");
 floatingCaptions.setAttribute("time", "");
 floatingCaptions.setAttribute("content", "[]");
 floatingCaptions.setAttribute("type", "append");
+floatingCaptions.setAttribute("loading", "true");
 
 // State Management
 let isBusy = false;
@@ -21,12 +22,13 @@ let videoSrc =
   video?.getAttribute("src") ||
   video?.querySelector("source")?.getAttribute("src");
 
-if (localStorage.getItem(window.location.href + videoSrc))
+if (localStorage.getItem(window.location.href + videoSrc)) {
   floatingCaptions.setAttribute(
     "content",
     localStorage.getItem(window.location.href + videoSrc)
   );
-
+  floatingCaptions.setAttribute("loading", "false");
+}
 // UI Elements
 
 // Handle messages from the background script (worker logic)
@@ -70,6 +72,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Update the output transcript
 const updateTranscript = (text, chunksArray) => {
+  if (floatingCaptions.getAttribute("loading") === "true")
+    floatingCaptions.setAttribute("loading", "false");
   floatingCaptions.setAttribute("content", JSON.stringify(chunksArray));
 };
 
