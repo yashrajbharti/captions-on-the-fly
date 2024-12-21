@@ -2,13 +2,12 @@ const floatingCaptionsDiv = document.createElement("div");
 floatingCaptionsDiv.classList.add("floating-captions");
 const floatingWrapper = document.createElement("div");
 floatingWrapper.classList.add("floating-wrapper");
+const video = document.querySelector("video");
 
 floatingWrapper.appendChild(floatingCaptionsDiv);
-document.body.appendChild(floatingWrapper);
+if (video) document.body.appendChild(floatingWrapper);
 
 const floatingCaptions = new FloatingCaptions(floatingCaptionsDiv);
-
-const video = document.querySelector("video");
 
 floatingCaptions.setAttribute("id", "captions");
 floatingCaptions.setAttribute("time", "");
