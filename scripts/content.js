@@ -1,5 +1,9 @@
 const floatingCaptionsDiv = document.createElement("div");
 floatingCaptionsDiv.classList.add("floating-captions");
+floatingCaptionsDiv.setAttribute("role", "region");
+floatingCaptionsDiv.setAttribute("aria-live", "polite");
+floatingCaptionsDiv.setAttribute("aria-label", "Auto captions");
+floatingCaptionsDiv.setAttribute("lang", "en");
 const floatingWrapper = document.createElement("div");
 floatingWrapper.classList.add("floating-wrapper");
 const video = document.querySelector("video");
