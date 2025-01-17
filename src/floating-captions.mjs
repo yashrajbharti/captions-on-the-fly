@@ -41,7 +41,7 @@ class FloatingCaptions extends HTMLElement {
           margin: 0;
         }
       </style>
-      <div class="captions-container" role="status"></div>
+      <div class="captions-container" role="region" aria-live="polite" aria-label="Auto captions" lang="en"></div>
     `;
     this.container = this.shadow.querySelector(".captions-container");
     this.currentCaptions = []; // Array to store current captions
