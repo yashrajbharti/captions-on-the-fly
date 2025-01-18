@@ -76,3 +76,21 @@ floating-captions:active {
 form {
     text-align: center;
 }
+
+.examples a {
+    color: light-dark(var(--light-color), var(--dark-color));
+    text-underline-offset: 5px;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color: light-dark(var(--light-bg), var(--dark-bg));
+    padding: 0.5em;
+    border: 2px solid light-dark(var(--light-color), var(--dark-color));
+    background-color: light-dark(var(--light-color), var(--dark-color));
+    border-radius: 3px;
+}
+
+input[type="radio"] {
+    accent-color: light-dark(var(--light-color), var(--dark-color));
+}
