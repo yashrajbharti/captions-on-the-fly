@@ -1,6 +1,7 @@
 // Main script: Decode the audio in the main thread
 const worker = new Worker("./worker.js", { type: "module" });
 const floatingCaptions = document.querySelector("floating-captions");
+floatingCaptions.setAttribute("loading", "true");
 
 // UI Elements
 const video = document.querySelector("video");
@@ -17,6 +18,8 @@ worker.onmessage = (event) => {
       "content",
       localStorage.getItem(window.location.href + videoSrc)
     );
+    if (floatingCaptions.getAttribute("loading") === "true")
+      floatingCaptions.setAttribute("loading", "false");
     return;
   }
   switch (status) {
@@ -51,6 +54,8 @@ worker.onmessage = (event) => {
 
 // Update the output transcript
 const updateTranscript = (text, chunksArray) => {
+  if (floatingCaptions.getAttribute("loading") === "true")
+    floatingCaptions.setAttribute("loading", "false");
   floatingCaptions.setAttribute("content", JSON.stringify(chunksArray));
   // console.log(chunksArray);
 };
@@ -103,6 +108,8 @@ video.addEventListener("play", async () => {
       "content",
       localStorage.getItem(window.location.href + videoSrc)
     );
+    if (floatingCaptions.getAttribute("loading") === "true")
+      floatingCaptions.setAttribute("loading", "false");
     return;
   }
   const audioFile = await getVideoAsFile(video);

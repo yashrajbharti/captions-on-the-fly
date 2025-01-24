@@ -1,6 +1,6 @@
 class FloatingCaptions extends HTMLElement {
   static get observedAttributes() {
-    return ["time", "content", "type"]; // Watch for the new 'type' attribute
+    return ["time", "content", "type", "loading"];
   }
 
   constructor() {
@@ -55,6 +55,10 @@ class FloatingCaptions extends HTMLElement {
       this.updateCaptions(parseFloat(newValue)); // Update captions based on time
     } else if (name === "content") {
       this.captions = JSON.parse(newValue); // Update the full list of captions
+    } else if (name === "loading") {
+      if (newValue === "true")
+        this.container.innerHTML = "Loading Model... Creating Captions...";
+      if (newValue === "false") this.container.innerHTML = "";
     } else if (name === "type") {
       this.container.style.flexDirection =
         newValue === "scroll" ? "column" : "column-reverse"; // Change flex direction based on 'type'
